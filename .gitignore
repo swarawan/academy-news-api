@@ -26,6 +26,7 @@
 
 /classes/
 /src/main/java/META-INF/
+/src/main/resources/application.yml
 /src/main/resources/application-dev.yml
 /src/main/resources/application-local.yml
 /classes/**
