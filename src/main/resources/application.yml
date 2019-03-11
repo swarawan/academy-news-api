@@ -1,1 +1,23 @@
+app:
+  name: Investree-Academy-News
 
+spring:
+  messages:
+    basename: message/messages
+
+  datasource:
+    platform: mysql
+    url: jdbc:mysql://localhost:3306/investree_academy_news
+    username: invdev
+    password: D3vkesukaanku
+
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+        jdbc:
+          lob:
+          non_contextual_creation: true
