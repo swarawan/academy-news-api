@@ -21,3 +21,5 @@ spring:
         jdbc:
           lob:
           non_contextual_creation: true
+
+key: aaabbb3d5b9740bd0be231b931ba1b43d36b9d59ea1b069b3c7b7ac1ae8c7e83
