@@ -3,6 +3,7 @@ package id.investree.news.controller.user;
 import id.investree.news.entity.User;
 import id.investree.news.model.request.UserRequest;
 import id.investree.news.repository.UserRepository;
+import id.investree.news.security.HmacAlgorithm;
 import id.investree.news.utilities.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,13 +16,16 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private HmacAlgorithm algorithm;
+
     @Override
-    public User save(UserRequest request) {
+    public User save(UserRequest request) throws Exception {
         User user = new User();
         user.setUsername(request.getUsername());
         user.setName(request.getName());
         user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        user.setPassword(algorithm.generate(request.getPassword()));
         user.setUpdatedDate(new Date());
         user.setCreatedDate(new Date());
 
@@ -29,7 +33,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User update(Long id, UserRequest request) {
+    public User update(Long id, UserRequest request) throws Exception {
         User oldUser = userRepository.getOne(id);
         if (null == oldUser) return null;
 
@@ -43,7 +47,7 @@ public class UserServiceImpl implements UserService {
                 oldUser.getEmail() : request.getEmail());
 
         oldUser.setPassword(StringUtils.isEmptyOrNull(request.getPassword()) ?
-                oldUser.getPassword() : request.getPassword());
+                oldUser.getPassword() : algorithm.generate(request.getPassword()));
 
         oldUser.setUpdatedDate(new Date());
 

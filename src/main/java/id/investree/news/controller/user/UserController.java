@@ -28,7 +28,7 @@ public class UserController extends BaseController {
     private MessageUtils messageUtils;
 
     @PostMapping
-    public ResponseEntity<ResultResponse> save(@RequestBody UserRequest request) {
+    public ResponseEntity<ResultResponse> save(@RequestBody UserRequest request) throws Exception {
 
         String validationField = validator.isFormValid(request);
         if (!StringUtils.isEmptyOrNull(validationField)) {
@@ -50,7 +50,7 @@ public class UserController extends BaseController {
 
     @PutMapping("{id}")
     public ResponseEntity<ResultResponse> update(@PathVariable("id") Long id,
-                                                 @RequestBody UserRequest request) {
+                                                 @RequestBody UserRequest request) throws Exception {
 
         String validationField = validator.isFormValid(request);
         if (!StringUtils.isEmptyOrNull(validationField)) {
